@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BAKA LORENZ YAN!</title>
+    <style>
+        .container{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <canvas id="board" width="510" height="320"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("board")
+        const board = canvas.getContext("2d")
+        let theta = Math.PI/6
+
+        // recursion function
+        function drawBranch(x, y, length,angle) {
+            var x1 = x + length * Math.cos(angle)
+            var y1 = y - length * Math.sin(angle)
+            board.beginPath()
+            board.moveTo(x, y)
+            board.lineTo(x1, y1)
+            board.lineWidth = length/5
+            board.stroke()
+            board.closePath()
+             
+             if(length >5){
+                drawBranch(x1, y1, length-5, angle-theta)
+                drawBranch(x1, y1, length-5, angle+theta)
+             }
+        }
+
+         var div = 25
+         setInterval( function() {
+              if(div > 1) {
+              board.fillStyle = "#e0e0e0"
+              board.strokeStyle = "black"
+              board.fillRect(0,0, canvas.width, canvas.height)
+              board.strokeRect(0,0, canvas.width, canvas.height)
+              div -= 0.09
+              theta = Math.PI/ div
+              drawBranch(245, 320, 50, Math.PI/2)
+             }
+         },50)
+        
+
+    </script>
+    
+</body>
+</html>
